@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum ROLE {
+  ADMINISTRATOR
+  MEMBER
+}
+
+model Member {
+  id                    String            @id @default(uuid())
+  name                  String            @db.Text
+  username              String            @db.VarChar(12)
+  passwordHash          String            @db.Text
+  emailAddress          String            @db.Text
+  role                  ROLE              @default(MEMBER)
+  sessions              Session[]         @relation("member_session")
+  posts                 Post[]            @relation("member_post")
+
+  status                Boolean           @default(true)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+model Session {
+  id                    String            @id @default(uuid())
+  token                 String            @db.Text
+  expireDate            DateTime
+  member                Member            @relation("member_session", fields: [memberId], references: [id])
+  memberId              String
+
+  status                Boolean           @default(true)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+model Category {
+  id                    String            @id @default(uuid())
+  name                  String            @db.Text
+
+  tags                  TagsInCategory[]
+
+  status                Boolean           @default(true)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+model Tag {
+  id                    String            @id @default(uuid())
+  name                  String            @db.Text
+  description           String?
+
+  categories            TagsInCategory[]
+  posts                 TagsInPost[]
+
+  status                Boolean           @default(true)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+model TagsInCategory {
+  tagId                 String
+  tag                   Tag               @relation(fields: [tagId], references: [id])
+
+  categoryId            String
+  category              Category          @relation(fields: [categoryId], references: [id])
+
+  status                Boolean           @default(true)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  @@id([tagId, categoryId])
+}
+
+model Post {
+  id                    String            @id @default(uuid())
+  subject               String            @db.Text
+  authorId              String
+  author                Member            @relation("member_post", fields: [authorId], references: [id])
+  content               String            @db.Text
+  
+  tags                  TagsInPost[]
+
+  status                Boolean           @default(true)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+model TagsInPost {
+  tagId                 String
+  tag                   Tag               @relation(fields: [tagId], references: [id])
+
+  postId                String
+  post                  Post              @relation(fields: [postId], references: [id])
+
+  status                Boolean           @default(true)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  @@id([tagId])
+}

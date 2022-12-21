@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto+Mono:wght@300&family=Source+Sans+Pro:wght@400;600;700&family=Spectral+SC:wght@800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+	height: 100%;
+}
+
+*::-webkit-scrollbar {
+	width: 3px;
+}
+
+*::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: darkgrey;
+	outline: 1px solid slategrey;
+}
+
+.label-floating input:not(:placeholder-shown) {
+	padding-top: 1.4rem;
+}
+.label-floating input:not(:placeholder-shown) ~ label {
+	font-size: 0.6rem;
+	transition: all 0.2s ease-in-out;
+	color: #1f9d55;
+}
