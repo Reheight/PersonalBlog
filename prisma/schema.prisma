@@ -12,6 +12,8 @@ datasource db {
 
 enum ROLE {
   ADMINISTRATOR
+  MODERATOR
+  AUTHOR
   MEMBER
 }
 
