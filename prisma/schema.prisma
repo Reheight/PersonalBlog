@@ -26,6 +26,7 @@ model Member {
   role                  ROLE              @default(MEMBER)
   sessions              Session[]         @relation("member_session")
   posts                 Post[]            @relation("member_post")
+  comments              CommentInPost[]   @relation("member_comment")
 
   status                Boolean           @default(true)
   createdAt             DateTime          @default(now())
@@ -89,6 +90,7 @@ model Post {
   author                Member            @relation("member_post", fields: [authorId], references: [id])
   content               String            @db.Text
   
+  comments              CommentInPost[]   @relation("post_comment")
   tags                  TagsInPost[]
 
   status                Boolean           @default(true)
@@ -107,4 +109,19 @@ model TagsInPost {
   createdAt             DateTime          @default(now())
   updatedAt             DateTime          @updatedAt
   @@id([tagId])
+}
+
+model CommentInPost {
+  id                    String            @id @default(uuid())
+  content               String            @db.Text
+
+  author                Member            @relation("member_comment", fields: [authorId], references: [id])
+  authorId              String
+
+  post                  Post              @relation("post_comment", fields: [postId], references: [id])
+  postId                String
+
+  status                Boolean           @default(true)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
 }

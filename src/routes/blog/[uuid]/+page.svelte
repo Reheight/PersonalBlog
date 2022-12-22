@@ -20,26 +20,47 @@
 			>
 		</div>
 	</div>
-	<div class="m-2 p-2 bg-orange-400 rounded-md relative overflow-hidden">
+	<div class="m-2 p-2 border-2 border-orange-200 bg-orange-400 rounded-md relative overflow-hidden">
 		{@html data.content}
 	</div>
+	<hr class="border-orange-200" />
 	<div
 		class="m-2 bg-gray-500 rounded-sm overflow-hidden hover outline-2 outline-orange-400 text-gray-600"
 	>
-		<form action="?/comment" class="flex flex-row w-full overflow-hidden" method="post" use:enhance>
+		<form action="?/comment" class="flex flex-row w-full overflow-hidden border-2 border-orange-200" method="post">
 			<input
 				type="text"
 				name="comment"
-				placeholder="Comments coming soon..."
-				disabled
+				placeholder="Comment"
 				id="comment"
-				class="flex-1 h-full p-1"
+				class="flex-1 outline-none h-full py-1 px-2 text-gray-100 placeholder-gray-100 bg-orange-400"
 			/>
 			<button
 				type="submit"
-				class="rounded-tr-sm rounded-br-sm text-white px-2 ease-in-out transition-all transform-gpu hover:bg-gray-900"
-				disabled>Send</button
+				class="rounded-tr-sm rounded-br-sm text-white px-2 ease-in-out transition-all transform-gpu hover:bg-gray-800"
+				>Send</button
 			>
 		</form>
+	</div>
+	<div class="m-2 bg-orange-200 rounded-sm p-1 text-gray-700">
+		{#if data.comments}
+		{#each data.comments as comment}
+		<div class="flex flex-row p-1 bg-orange-300 m-1 rounded-sm items-center">
+			<div class="py-1 px-2 rounded-sm bg-orange-200 mr-2">
+				<a href={`/profile/@${comment.author.username}`} class="text-base">{comment.author.name}</a>
+				<p class="text-sm">{new Date(comment.createdAt).toLocaleDateString(undefined, {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric',
+					hour: "numeric",
+					minute: "numeric"
+				})}</p>
+			</div>
+			<p>{comment.content}</p>
+		</div>
+		{/each}
+		{:else}
+		<p>It seems a bit lonely in here, send a comment!</p>
+		{/if}
 	</div>
 </div>
