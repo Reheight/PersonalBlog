@@ -57,13 +57,13 @@
 	>
 		<div class="flex flex-row h-full items-center px-2 py-1 font-ssp justify-between">
 			<div class="flex flex-row">
-				<a href="/account" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
+				<!-- <a href="/account" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
 					>Account</a
-				>
+				> -->
 				<a href="/me" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
 					>Profile</a
 				>
-				<a href="/me/posts" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
+				<!-- <a href="/me/posts" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
 					>Posts</a
 				>
 				<a
@@ -72,7 +72,7 @@
 				>
 				<a href="/me/likes" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
 					>Likes</a
-				>
+				> -->
 			</div>
 			{#if $page.data.member.role === 'AUTHOR' || $page.data.member.role === 'ADMINISTRATOR'}
 				<div class="flex flex-row">

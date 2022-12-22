@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -10,7 +9,7 @@
 	<div class="text-gray-800 flex flex-col justify-center m-2">
 		<h1 class="font-montserrat flex-1 text-2xl uppercase font-extrabold">{data.subject}</h1>
 		<div class="flex flex-row justify-between items-center text-gray-600">
-			<span>By, {data.author.name} (@{data.author.username})</span>
+			<span>By, <a href={`/profile/@${data.author.username}`}>{data.author.name} (@{data.author.username})</a></span>
 			<span
 				>{new Date(data.createdAt).toLocaleDateString(undefined, {
 					year: 'numeric',
@@ -24,6 +23,7 @@
 		{@html data.content}
 	</div>
 	<hr class="border-orange-200" />
+	{#if $page.data.member}
 	<div
 		class="m-2 bg-gray-500 rounded-sm overflow-hidden hover outline-2 outline-orange-400 text-gray-600"
 	>
@@ -42,6 +42,7 @@
 			>
 		</form>
 	</div>
+	{/if}
 	<div class="m-2 bg-orange-200 rounded-sm p-1 text-gray-700">
 		{#if data.comments}
 		{#each data.comments as comment}

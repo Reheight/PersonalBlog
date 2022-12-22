@@ -7,6 +7,23 @@ import { resBuilder } from '$lib/res';
 import regex from '$lib/regex';
 import type { Post, Member, TagsInPost, ROLE } from '@prisma/client';
 
+export const load = (async ({ cookies }) => {
+	const token = cookies.get('access-token');
+
+	if (!token) return;
+
+	const member = await db.member.findFirst({
+		where: { status: true, sessions: { some: { token } } }
+	});
+
+	if (!member) {
+		cookies.delete('access-token');
+		return;
+	}
+
+	if (member) throw redirect(302, '/');
+}) satisfies PageServerLoad;
+
 const fetchBlogs: Action = async ({ request, cookies }) => {
 	const blogs = await db.post.findMany({
 		orderBy: { updatedAt: 'desc' },

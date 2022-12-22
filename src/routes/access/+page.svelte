@@ -2,7 +2,6 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { redirect } from '@sveltejs/kit';
-	if ($page.data.member) throw redirect(303, '/');
 
 	import LoginPrompt from '../../components/LoginPrompt/LoginPrompt.svelte';
 	import type { ActionData } from './$types';

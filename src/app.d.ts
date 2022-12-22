@@ -8,6 +8,7 @@ declare namespace App {
 		member: {
 			id: string;
 			name: string;
+			username: string;
 			email: string;
 			role: ROLE;
 			status: boolean;

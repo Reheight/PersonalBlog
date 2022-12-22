@@ -11,6 +11,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		select: {
 			id: true,
 			name: true,
+			username: true,
 			emailAddress: true,
 			role: true,
 			status: true,
@@ -24,6 +25,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.member = {
 		id: member.id,
 		name: member.name,
+		username: member.username,
 		email: member.emailAddress,
 		role: member.role,
 		status: member.status,

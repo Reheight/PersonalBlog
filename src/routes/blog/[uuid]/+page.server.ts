@@ -9,9 +9,12 @@ export const load = (async ({ params }) => {
 		include: { author: true, tags: true }
 	});
 
+	if (!post) throw error(404);
+
 	const comments = await db.commentInPost.findMany({
 		where: { postId: post.id, status: true },
-		include: { author: true }
+		include: { author: true },
+		orderBy: { createdAt: 'asc' }
 	});
 
 	post.comments = [];
@@ -22,8 +25,6 @@ export const load = (async ({ params }) => {
 
 		post.comments.push(comments[i]);
 	}
-
-	if (!post) throw error(404);
 
 	delete post.author.emailAddress;
 	delete post.author.passwordHash;
