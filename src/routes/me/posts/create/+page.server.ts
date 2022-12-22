@@ -1,6 +1,12 @@
+import { page } from '$app/stores';
 import { db } from '$lib/database';
 import { resBuilder } from '$lib/res';
 import { fail, redirect, type Actions, type Action } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+
+export const load = (({ params, locals }) => {
+	if (locals.member.role !== 'ADMINISTRATOR') throw redirect(302, '/');
+}) satisfies PageServerLoad;
 
 const create: Action = async ({ request, cookies }) => {
 	const token = cookies.get('access-token');

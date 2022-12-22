@@ -15,4 +15,6 @@ export const load = (async ({ cookies }) => {
 		cookies.delete('access-token');
 		throw redirect(302, '/');
 	}
+
+	return member;
 }) satisfies LayoutServerLoad;
