@@ -86,6 +86,7 @@ model TagsInCategory {
 model Post {
   id                    String            @id @default(uuid())
   subject               String            @db.Text
+  description           String            @db.Text
   authorId              String
   author                Member            @relation("member_post", fields: [authorId], references: [id])
   content               String            @db.Text

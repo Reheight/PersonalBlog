@@ -19,11 +19,18 @@ export const GET = (async ({ url }) => {
 		};
 		tags: TagsInPost[];
 		content: string;
+		description: string;
 		createdAt: Date;
 		updatedAt: Date;
 		status: boolean;
 		subject: string;
 	}[] = [];
+
+	function getTag(tagid: string) {
+		let tag: { id: string; name?: string } = { id: tagid };
+
+		return tag;
+	}
 
 	for (let i = 0; i < blogs.length; i++) {
 		const blog = blogs[i];
@@ -38,6 +45,7 @@ export const GET = (async ({ url }) => {
 			},
 			tags: blog.tags,
 			content: blog.content,
+			description: blog.description,
 			createdAt: blog.createdAt,
 			status: blog.status,
 			subject: blog.subject,

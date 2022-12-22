@@ -23,16 +23,23 @@ const create: Action = async ({ request, cookies }) => {
 	const data = await request.formData();
 	const subject = data.get('subject');
 	const content = data.get('content');
+	const description = data.get('description');
 
 	if (!subject || typeof subject !== 'string')
 		return fail(400, resBuilder(true, 'You need to provide a valid subject for your blog post.'));
 	if (!content || typeof content !== 'string')
 		return fail(400, resBuilder(true, 'You need to provide content for your blog post.'));
+	if (!description || typeof description !== 'string')
+		return fail(
+			400,
+			resBuilder(true, 'You need to provide a valid description for your blog post.')
+		);
 
 	const _post = await db.post.create({
 		data: {
 			subject,
 			content,
+			description,
 			authorId: member.id
 		}
 	});

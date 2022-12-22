@@ -64,7 +64,54 @@ const comment: Action = async ({ request, params, cookies }) => {
 
 	if (!nComment) return fail(500, resBuilder(true, 'We had an issue while creating your comment.'));
 
-	throw redirect(302, `/blog/${post.id}#${nComment.id}`);
+	throw redirect(302, `/blog/${post.id}`);
 };
 
-export const actions: Actions = { comment };
+const deletecomment: Action = async ({ request, params, cookies }) => {
+	console.log('HIT!');
+	const token = cookies.get('access-token');
+	if (!token) return fail(400, resBuilder(true, 'You are not currently logged in.'));
+
+	const member = await db.member.findFirst({ where: { sessions: { some: { token } } } });
+
+	if (!member)
+		return fail(
+			400,
+			resBuilder(true, 'You did not provide a token that is associated with an account.')
+		);
+
+	const post = await db.post.findFirst({
+		where: { id: params.uuid, status: true },
+		include: { comments: true }
+	});
+	if (!post)
+		return fail(
+			500,
+			resBuilder(true, "We are unable to identify the post you're trying to comment on.")
+		);
+
+	const data = await request.formData();
+	const comment = data.get('comment');
+
+	if (!comment || typeof comment !== 'string')
+		return fail(400, resBuilder(true, 'You need to provide a valid comment!'));
+
+	const _comment = post.comments.find((x) => x.id === comment);
+
+	if (!_comment) return fail(500, resBuilder(true, 'We had an issue finding the comment!'));
+
+	if (
+		_comment.authorId !== member.id &&
+		post.authorId !== member.id &&
+		member.role !== 'ADMINISTRATOR'
+	)
+		return fail(400, resBuilder(true, 'You not now have permissions to delete this comment.'));
+
+	await db.post.update({
+		where: { id: post.id },
+		data: { comments: { delete: { id: _comment!.id } } }
+	});
+	throw redirect(302, `/blog/${post.id}`);
+};
+
+export const actions: Actions = { comment, deletecomment };

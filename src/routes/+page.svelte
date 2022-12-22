@@ -18,6 +18,7 @@
 				role: ROLE;
 			};
 			content: string;
+			description: string;
 			createdAt: Date;
 			updatedAt: Date;
 			status: boolean;
@@ -34,6 +35,7 @@
 					role: ROLE;
 				};
 				content: string;
+				description: string;
 				createdAt: Date;
 				updatedAt: Date;
 				status: boolean;
@@ -59,13 +61,16 @@
 		{#await fetchAllBlogs}
 			<p>Loading...</p>
 		{:then blogs}
+			{#if blogs.length === 0}
+			It's a bit empty right now...
+			{/if}
 			{#each blogs as blog}
 				<div
-					class="flex flex-col bg-orange-400 m-2 p-2 rounded-sm ease-in-out transition-all transform-gpu hover:shadow-md hover:cursor-pointer"
+					class="flex flex-col bg-orange-400 h-64 m-2 p-2 rounded-sm overflow-hidden ease-in-out transition-all transform-gpu hover:shadow-md hover:cursor-pointer"
 					on:mousedown={() => (location.href = `/blog/${blog.id}`)}
 				>
 					<div class="flex flex-col w-full">
-						<div class="flex flex-row justify-between border-b-[1px] border-orange-300">
+						<div class="flex flex-row justify-between">
 							<h4 class="font-robotomono">{blog.subject}</h4>
 							<h3 class="font-ssp text-gray-700">{new Date(blog.createdAt).toLocaleDateString(undefined, {
 								year: 'numeric',
@@ -74,11 +79,14 @@
 							})}</h3>
 						</div>
 					</div>
-					<div class="w-full border-b-[1px] border-orange-300 text-gray-700 text-sm truncate">
-						{@html blog.content}
+					<div class="w-full text-gray-700 text-sm truncate max-h-48">
+						<div class="h-full overflow-x-hidden overflow-y-auto rounded-sm shadow bg-gray-200 p-2 relative">
+							<p class="whitespace-pre-wrap overflow-ellipsis">{blog.description}</p>
+						</div>
 					</div>
-					<div class="flex flex-row items-center my-1 justify-end">
+					<div class="flex flex-row items-center my-1 justify-between">
 						<p class="bg-gray-300 px-[5px] py-[1x] rounded-sm">@{blog.author.username}</p>
+						<a href={`/blog/${blog.id}`}>Read More</a>
 					</div>
 				</div>
 			{/each}
