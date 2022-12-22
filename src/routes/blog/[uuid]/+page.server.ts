@@ -64,7 +64,7 @@ const comment: Action = async ({ request, params, cookies }) => {
 
 	if (!nComment) return fail(500, resBuilder(true, 'We had an issue while creating your comment.'));
 
-	throw redirect(302, `/blog/${post.id}/#${nComment.id}`);
+	throw redirect(302, `/blog/${post.id}#${nComment.id}`);
 };
 
 export const actions: Actions = { comment };

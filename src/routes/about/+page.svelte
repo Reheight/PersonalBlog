@@ -22,7 +22,7 @@
 	</div>
 
 	<div class="w-full flex flex-row p-5 overflow-hidden">
-		<div class="max-h-32 sm:max-h-44 md:max-h-96 self-center p-5 bg-orange-300 rounded-tr-md rounded-br-md shadow text-gray-800 overflow-y-auto scroll-smooth">
+		<div class="max-h-32 sm:max-h-44 md:max-h-96 self-center p-5 bg-orange-300 rounded-tl-md rounded-bl-md shadow text-gray-800 overflow-y-auto scroll-smooth">
 			<h1 class="font-bold text-lg uppercase mb-2 border-b-2 border-orange-400">
 				What software did I use for Web Development?
 			</h1>
