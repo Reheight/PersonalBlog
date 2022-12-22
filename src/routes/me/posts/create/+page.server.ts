@@ -5,7 +5,8 @@ import { fail, redirect, type Actions, type Action } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load = (({ params, locals }) => {
-	if (locals.member.role !== 'ADMINISTRATOR') throw redirect(302, '/');
+	if (locals.member.role !== 'ADMINISTRATOR' && locals.member.role !== 'AUTHOR')
+		throw redirect(302, '/');
 }) satisfies PageServerLoad;
 
 const create: Action = async ({ request, cookies }) => {
@@ -17,7 +18,7 @@ const create: Action = async ({ request, cookies }) => {
 		return fail(400, resBuilder(true, 'The token provided does not exist.'));
 	}
 
-	if (member.role !== 'ADMINISTRATOR')
+	if (member.role !== 'ADMINISTRATOR' && member.role !== 'AUTHOR')
 		return fail(403, resBuilder(true, 'You do not have access to this resource.'));
 
 	const data = await request.formData();

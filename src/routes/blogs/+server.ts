@@ -12,6 +12,7 @@ export const GET = (async ({ url }) => {
 	let blogArr: {
 		id: string;
 		author: {
+			id: string;
 			name: string;
 			username: string;
 			status: boolean;
@@ -38,6 +39,7 @@ export const GET = (async ({ url }) => {
 		blogArr.push({
 			id: blog.id,
 			author: {
+				id: blog.authorId,
 				name: blog.author.name,
 				username: blog.author.username,
 				status: blog.author.status,

@@ -192,7 +192,7 @@ const logout: Action = async ({ request, cookies }) => {
 
 	await db.session.delete({ where: { id: tokenExists.id } });
 
-	throw redirect(302, '/contact');
+	throw redirect(302, '/');
 };
 
 export const actions: Actions = { register, login, logout, fetchBlogs };
