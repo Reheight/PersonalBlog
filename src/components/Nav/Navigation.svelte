@@ -5,7 +5,7 @@
 	import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 	import { enhance } from '$app/forms';
 
-	let menuOpen: boolean = true;
+	let menuOpen: boolean = false;
 </script>
 
 <div class="w-full flex flex-row bg-gray-600 justify-between select-none shadow-sm">
@@ -57,19 +57,35 @@
 	>
 		<div class="flex flex-row h-full items-center px-2 py-1 font-ssp justify-between">
 			<div class="flex flex-row">
-				<a href="/account" class="px-1">Account</a>
-				<a href="/me" class="px-1">Profile</a>
-				<a href="/me/posts" class="px-1">Posts</a>
-				<a href="/me/comments" class="px-1">Comments</a>
-				<a href="/me/likes" class="px-1">Likes</a>
+				<a href="/account" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
+					>Account</a
+				>
+				<a href="/me" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
+					>Profile</a
+				>
+				<a href="/me/posts" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
+					>Posts</a
+				>
+				<a
+					href="/me/comments"
+					class="px-1 hover:text-white ease-in-out transform-gpu transition-all">Comments</a
+				>
+				<a href="/me/likes" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
+					>Likes</a
+				>
 			</div>
-			{#if $page.data.member.role === "AUTHOR" || $page.data.member.role === "ADMINISTRATOR"}
-			<div class="flex flex-row">
-				<a href="/me/posts/create" class="px-1">New Post</a>
-				{#if $page.data.member.role === "ADMINISTATOR"}
-				<a href="/me/posts/create" class="px-1">New Post</a>
-				{/if}
-			</div>
+			{#if $page.data.member.role === 'AUTHOR' || $page.data.member.role === 'ADMINISTRATOR'}
+				<div class="flex flex-row">
+					<a
+						href="/me/posts/create"
+						class="px-1 hover:text-white ease-in-out transform-gpu transition-all">New Post</a
+					>
+					{#if $page.data.member.role === 'ADMINISTRATOR'}
+						<a href="/panel" class="px-1 hover:text-white ease-in-out transform-gpu transition-all"
+							>Panel</a
+						>
+					{/if}
+				</div>
 			{/if}
 		</div>
 	</div>

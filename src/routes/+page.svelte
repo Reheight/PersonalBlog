@@ -61,6 +61,7 @@
 			{#each blogs as blog}
 				<div
 					class="w-full flex flex-col bg-orange-400 m-2 p-2 rounded-sm ease-in-out transition-all transform-gpu hover:shadow-md hover:cursor-pointer"
+					on:mousedown={() => (location.href = `/blog/${blog.id}`)}
 				>
 					<div class="flex flex-row w-full">
 						<h1>{blog.subject}</h1>
