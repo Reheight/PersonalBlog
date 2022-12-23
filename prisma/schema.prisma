@@ -48,8 +48,9 @@ model Session {
 model Category {
   id                    String            @id @default(uuid())
   name                  String            @db.Text
+  description           String            @db.Text
 
-  tags                  TagsInCategory[]
+  posts                 Post[]            @relation("category_post")
 
   status                Boolean           @default(true)
   createdAt             DateTime          @default(now())
@@ -61,55 +62,45 @@ model Tag {
   name                  String            @db.Text
   description           String?
 
-  categories            TagsInCategory[]
-  posts                 TagsInPost[]
+  posts                 TagInPost[]       @relation("tag_post")
 
   status                Boolean           @default(true)
   createdAt             DateTime          @default(now())
   updatedAt             DateTime          @updatedAt
-}
-
-model TagsInCategory {
-  tagId                 String
-  tag                   Tag               @relation(fields: [tagId], references: [id])
-
-  categoryId            String
-  category              Category          @relation(fields: [categoryId], references: [id])
-
-  status                Boolean           @default(true)
-  createdAt             DateTime          @default(now())
-  updatedAt             DateTime          @updatedAt
-
-  @@id([tagId, categoryId])
 }
 
 model Post {
   id                    String            @id @default(uuid())
   subject               String            @db.Text
   description           String            @db.Text
+
+  category              Category          @relation("category_post", fields: [categoryId], references: [id])
+  categoryId            String
+
   authorId              String
   author                Member            @relation("member_post", fields: [authorId], references: [id])
   content               String            @db.Text
   
   comments              CommentInPost[]   @relation("post_comment")
-  tags                  TagsInPost[]
+  tags                  TagInPost[]       @relation("post_tag")
 
   status                Boolean           @default(true)
   createdAt             DateTime          @default(now())
   updatedAt             DateTime          @updatedAt
 }
 
-model TagsInPost {
-  tagId                 String
-  tag                   Tag               @relation(fields: [tagId], references: [id])
+model TagInPost {
+  id                    String            @id @default(uuid())
 
+  tag                   Tag               @relation("tag_post", fields: [tagId], references: [id])
+  tagId                 String
+
+  post                  Post              @relation("post_tag", fields: [postId], references: [id])
   postId                String
-  post                  Post              @relation(fields: [postId], references: [id])
 
   status                Boolean           @default(true)
   createdAt             DateTime          @default(now())
   updatedAt             DateTime          @updatedAt
-  @@id([tagId])
 }
 
 model CommentInPost {

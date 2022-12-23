@@ -9,7 +9,7 @@
 	<Header />
 	<Navigation />
 	<div class="flex-1 bg-orange-200 overflow-auto w-full">
-		<div class="flex w-full" style="min-height: min-content;">
+		<div class="flex w-full h-full overflow-y-auto">
 			<slot />
 		</div>
 	</div>
