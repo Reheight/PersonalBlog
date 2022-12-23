@@ -4,8 +4,8 @@
 	export let data: PageData;
 </script>
 
-<div class="w-full flex row p-2">
-    <div class="w-3/12 h-fit mr-2 shadow bg-orange-300 rounded-md p-2">
+<div class="w-full flex flex-col md:flex-row p-2">
+    <div class="mb-2 md:mb-0 md:w-3/12 md:mr-2 h-fit shadow bg-orange-300 rounded-md p-2">
         <div class="flex flex-row justify-between">
             <div class="flex flex-row items-center justify-between w-full">
                 <h4 class="font-robotomono uppercase font-bold text-base text-gray-800">{data.name}</h4>
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="w-6/12 h-fit mr-2 shadow bg-orange-300 rounded-md p-2">
+    <div class="mb-2 md:mb-0 md:w-6/12 md:mr-2 h-fit shadow bg-orange-300 rounded-md p-2">
         <div class="flex flex-row justify-between mb-2">
             <div class="flex flex-row items-center w-full">
                 <h4 class="font-robotomono uppercase font-bold text-base text-gray-800">Content</h4>
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="w-3/12 h-fit mr-2 shadow bg-orange-300 rounded-md p-2">
+    <div class="md:w-3/12 md:mr-2 h-fit shadow bg-orange-300 rounded-md p-2">
         <div class="flex flex-row justify-between mb-2">
             <div class="flex flex-row items-center justify-between w-full">
                 <h4 class="font-robotomono uppercase font-bold text-base text-gray-800">Information</h4>

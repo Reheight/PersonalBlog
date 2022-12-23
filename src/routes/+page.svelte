@@ -7,7 +7,7 @@
 	import { page } from '$app/stores';
 
 	async function fetchBlogs() {
-		const res = await fetch('/blogs');
+		const res = await fetch('/api/blogs');
 
 		const response = await res.json();
 
@@ -89,8 +89,8 @@
 							})}</h3>
 						</div>
 					</div>
-					<div class="w-full text-gray-700 text-sm truncate max-h-48">
-						<div class="overflow-x-hidden overflow-y-auto rounded-sm shadow bg-gray-200 p-2 relative">
+					<div class="w-full flex-1 text-gray-700 text-sm truncate">
+						<div class="h-full overflow-x-hidden overflow-y-auto rounded-sm shadow bg-gray-200 p-2 relative">
 							<p class="whitespace-pre-wrap overflow-ellipsis">{blog.description}</p>
 						</div>
 					</div>

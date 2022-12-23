@@ -68,16 +68,17 @@
 			/>
 
 			<Editor
-				{value}
-				{plugins}
-				editorConfig={{ dragDrop: true, indentWithTabs: true, autocapitalize: true }}
-				uploadImages={handleImage}
-				on:change={handleChange}
-			/>
+					{value}
+					{plugins}
+					class="z-[1]"
+					editorConfig={{ dragDrop: true, indentWithTabs: true, autocapitalize: true, addModeClass: true }}
+					uploadImages={handleImage}
+					on:change={handleChange}
+				/>
 
 			<button
 				type="submit"
-				class="w-full rounded mt-1 p-2 font-robotomono uppercase font-bold bg-gray-500 text-white ease-in-out transform-gpu transition-all hover:bg-gray-400"
+				class="-z-[0] w-full rounded mt-1 p-2 font-robotomono uppercase font-bold bg-gray-500 text-white ease-in-out transform-gpu transition-all hover:bg-gray-400"
 				>Create</button
 			>
 		</form>

@@ -43,7 +43,7 @@
 				>
 			</div>
 		</div>
-		<div class="m-2 p-2 border-2 border-orange-200 bg-orange-400 rounded-md relative overflow-hidden">
+		<div class="m-2 p-2 border-2 border-orange-200 bg-gray-200 rounded-md relative overflow-hidden text-gray-900">
 			<Viewer {plugins} value={data.content} />
 		</div>
 		{#if $page.data.member}

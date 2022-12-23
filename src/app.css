@@ -30,3 +30,7 @@ body {
 	transition: all 0.2s ease-in-out;
 	color: #1f9d55;
 }
+
+.bytemd-fullscreen {
+	z-index: 1;
+}

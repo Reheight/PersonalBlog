@@ -3,30 +3,22 @@
 
 	export let data: PageData;
 
-    const blog = data;
+	const blog = data;
 
-    import 'bytemd/dist/index.css'
+	import 'bytemd/dist/index.css';
 	import { enhance } from '$app/forms';
 
 	import { Editor } from 'bytemd';
 	import gfm from '@bytemd/plugin-gfm';
-	import fm from "@bytemd/plugin-frontmatter";
-	import gm from "@bytemd/plugin-gemoji";
-	import hl from "@bytemd/plugin-highlight";
-	import mt from "@bytemd/plugin-math";
-	import mz from "@bytemd/plugin-medium-zoom";
-	import mm from "@bytemd/plugin-mermaid";
+	import fm from '@bytemd/plugin-frontmatter';
+	import gm from '@bytemd/plugin-gemoji';
+	import hl from '@bytemd/plugin-highlight';
+	import mt from '@bytemd/plugin-math';
+	import mz from '@bytemd/plugin-medium-zoom';
+	import mm from '@bytemd/plugin-mermaid';
 
 	let value = blog.content;
-	const plugins = [
-		gfm(),
-		fm(),
-		gm(),
-		hl(),
-		mt(),
-		mz(),
-		mm()
-	]
+	const plugins = [gfm(), fm(), gm(), hl(), mt(), mz(), mm()];
 
 	/**
 	 * @param {{ detail: { value: any; }; }} e
@@ -45,28 +37,32 @@
 			method="post"
 			use:enhance
 		>
-            <input type="hidden" name="id" value={blog.id} />
+			<input type="hidden" name="id" value={blog.id} />
 			<input
 				class="outline-none rounded-sm p-1 mb-1"
 				type="text"
 				name="subject"
 				id="subject"
 				placeholder="Title/Subject"
-                value={blog.subject}
+				value={blog.subject}
 			/>
 
-			<input type="hidden" name="content" value={value}>
+			<input type="hidden" name="content" {value} />
 
-			<textarea name="description" placeholder="Description shown on home page..."
+			<textarea
+				name="description"
+				placeholder="Description shown on home page..."
 				class="rounded-sm outline-none p-1 mb-1 resize-y"
-                value={blog.description}
+				value={blog.description}
 			/>
 
 			<Editor {value} {plugins} on:change={handleChange} />
 
-			<button type="submit"
+			<button
+				type="submit"
 				class="w-full rounded mt-1 p-2 font-robotomono uppercase font-bold bg-gray-500 text-white ease-in-out transform-gpu transition-all hover:bg-gray-400"
-			>Save</button>
+				>Save</button
+			>
 		</form>
 	</div>
 </div>
