@@ -17,7 +17,7 @@
 	/**
 	 * @param {{ detail: { value: any; }; }} e
 	 */
-	async function handleChange(e) {
+	async function handleChange(e: { detail: { value: string; }; }) {
 		value = e.detail.value;
 	}
 
@@ -70,7 +70,6 @@
 			<Editor
 					{value}
 					{plugins}
-					class="z-[1]"
 					editorConfig={{ dragDrop: true, indentWithTabs: true, autocapitalize: true, addModeClass: true }}
 					uploadImages={handleImage}
 					on:change={handleChange}

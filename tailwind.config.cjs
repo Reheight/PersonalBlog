@@ -7,7 +7,10 @@ module.exports = {
 			montserrat: ['Montserrat', 'sans-serif'],
 			robotomono: ['Roboto Mono', 'monospace'],
 			ssp: ['Source Sans Pro', 'sans-serif'],
-			ssc: ['Spectral SC', 'serif']
+			ssc: ['Spectral SC', 'serif'],
+			poppins: ['Poppins', 'sans-serif'],
+			tw: ['Titillium Web', 'sans-serif'],
+			ad: ['Anek Devanogari', 'sans-serif']
 		}
 	},
 	plugins: []
