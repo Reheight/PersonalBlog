@@ -1,32 +1,44 @@
-<script>
-	import 'bytemd/dist/index.css'
+<script lang="ts">
+	import 'bytemd/dist/index.css';
 	import { enhance } from '$app/forms';
 
 	import { Editor } from 'bytemd';
 	import gfm from '@bytemd/plugin-gfm';
-	import fm from "@bytemd/plugin-frontmatter";
-	import gm from "@bytemd/plugin-gemoji";
-	import hl from "@bytemd/plugin-highlight";
-	import mt from "@bytemd/plugin-math";
-	import mz from "@bytemd/plugin-medium-zoom";
-	import mm from "@bytemd/plugin-mermaid";
+	import fm from '@bytemd/plugin-frontmatter';
+	import gm from '@bytemd/plugin-gemoji';
+	import hl from '@bytemd/plugin-highlight';
+	import mt from '@bytemd/plugin-math';
+	import mz from '@bytemd/plugin-medium-zoom';
+	import mm from '@bytemd/plugin-mermaid';
 
 	let value = '';
-	const plugins = [
-		gfm(),
-		fm(),
-		gm(),
-		hl(),
-		mt(),
-		mz(),
-		mm()
-	]
+	const plugins = [gfm(), fm(), gm(), hl(), mt(), mz(), mm()];
 
 	/**
 	 * @param {{ detail: { value: any; }; }} e
 	 */
-	function handleChange(e) {
+	async function handleChange(e) {
 		value = e.detail.value;
+	}
+
+	/**
+	 *
+	 * @param {File[]} e
+	 */
+	async function handleImage(e: File[]) {
+		const images: any[] = [];
+		for (let i = 0; i < e.length; i++) {
+			const file = e[i];
+			const data = await file.text();
+
+			images.push({
+				title: file.name,
+				alt: 'Some image',
+				url: 'https://i.pinimg.com/550x/85/d4/ae/85d4ae742c390a77c4f8ae318e52c99b.jpg'
+			});
+		}
+
+		return images;
 	}
 </script>
 
@@ -47,17 +59,27 @@
 				placeholder="Title/Subject"
 			/>
 
-			<input type="hidden" name="content" value={value}>
+			<input type="hidden" name="content" {value} />
 
-			<textarea name="description" placeholder="Description shown on home page..."
+			<textarea
+				name="description"
+				placeholder="Description shown on home page..."
 				class="rounded-sm outline-none p-1 mb-1 resize-y"
 			/>
 
-			<Editor {value} {plugins} on:change={handleChange} />
+			<Editor
+				{value}
+				{plugins}
+				editorConfig={{ dragDrop: true, indentWithTabs: true, autocapitalize: true }}
+				uploadImages={handleImage}
+				on:change={handleChange}
+			/>
 
-			<button type="submit"
+			<button
+				type="submit"
 				class="w-full rounded mt-1 p-2 font-robotomono uppercase font-bold bg-gray-500 text-white ease-in-out transform-gpu transition-all hover:bg-gray-400"
-			>Create</button>
+				>Create</button
+			>
 		</form>
 	</div>
 </div>
