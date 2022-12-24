@@ -1,0 +1,3 @@
+<div class="m-4 font-poppins text-gray-900">
+    Honestly, this tab is useless for me. You would probably find use for this tab if you are collecting metrics data or trying to display metrics data from a 3rd party such as Google Ads. I also understand that this was probably not the panel you were expecting. This is only designed to serve a small set of creators who can manage the portal themselves. This is not recommended for large-scale usage. This was a personal project for myself.
+</div>
