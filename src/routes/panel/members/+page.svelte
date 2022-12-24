@@ -8,11 +8,18 @@
     export let data: PageData;
     export let form: ActionData;
 
-    if (form?.error) {
-        toast(form?.data);
-    }
+    
 </script>
-
+{#if form?.error}
+		<div class="w-full flex justify-center item-center">
+			<div class="bg-orange-300 w-3/6 p-2 rounded-md shadow">
+				<div class="bg-red-400 rounded-sm overflow-hidden p-2">
+					<h4>Woah!</h4>
+					<p>{form?.data}</p>
+				</div>
+			</div>
+		</div>
+	{/if}
 <h1 class="m-4 font-montserrat text-2xl font-bold">Members Panel</h1>
 <div class="m-2 flex flex-col">
     {#each data.members as member}
@@ -40,13 +47,11 @@
 
         <div class="absolute -top-2.5 -right-2.5 bg-orange-300 p-2 rounded-md">
             <div class="flex flex-row h-full w-full">
-                <form action="?/modify" method="post" use:enhance>
-                    <button type="submit" name="id" value={member.id}
+                <a href={`/panel/members/modify/${member.id}`}
                         class="text-white bg-orange-400 ease-in-out transform-gpu transition-all hover:bg-orange-500 p-2 rounded-sm mr-1"
                     >
                         <Fa icon={faPencil} />
-                    </button>
-                </form>
+                </a>
 
                 {#if member.status === false}
                 <form action="?/unlock" method="post" use:enhance>
@@ -66,13 +71,11 @@
                 </form>
                 {/if}
 
-                <form action="?/delete" method="post" use:enhance>
-                    <button type="submit" name="id" value={member.id}
-                        class="text-white bg-orange-400 ease-in-out transform-gpu transition-all hover:bg-orange-500 p-2 rounded-sm"
+                <a href={`/panel/members/delete/${member.id}`}
+                        class="text-white bg-orange-400 ease-in-out transform-gpu transition-all hover:bg-orange-500 p-2 rounded-sm mr-1"
                     >
                         <Fa icon={faTrashCan} />
-                    </button>
-                </form>
+                </a>
             </div>
         </div>
     </div>

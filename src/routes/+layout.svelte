@@ -3,11 +3,8 @@
 	import Footer from '../components/Foot/Footer.svelte';
 	import '../app.css';
 	import Header from '../components/Header/Header.svelte';
-	import { ToastProvider } from 'svelte-cool-toast';
-	import "svelte-cool-toast/css/theme.css";
 </script>
 
-<ToastProvider placement="top-right">
 	<main class="h-full flex flex-col">
 		<Header />
 		<Navigation />
@@ -18,5 +15,3 @@
 		</div>
 		<Footer />
 	</main>
-</ToastProvider>
-

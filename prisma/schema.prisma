@@ -37,7 +37,7 @@ model Session {
   id                    String            @id @default(uuid())
   token                 String            @db.Text
   expireDate            DateTime
-  member                Member            @relation("member_session", fields: [memberId], references: [id])
+  member                Member            @relation("member_session", fields: [memberId], references: [id], onDelete: Cascade)
   memberId              String
 
   status                Boolean           @default(true)
@@ -74,11 +74,11 @@ model Post {
   subject               String            @db.Text
   description           String            @db.Text
 
-  category              Category          @relation("category_post", fields: [categoryId], references: [id])
+  category              Category          @relation("category_post", fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId            String
 
   authorId              String
-  author                Member            @relation("member_post", fields: [authorId], references: [id])
+  author                Member            @relation("member_post", fields: [authorId], references: [id], onDelete: Cascade)
   content               String            @db.Text
   
   comments              CommentInPost[]   @relation("post_comment")
@@ -92,10 +92,10 @@ model Post {
 model TagInPost {
   id                    String            @id @default(uuid())
 
-  tag                   Tag               @relation("tag_post", fields: [tagId], references: [id])
+  tag                   Tag               @relation("tag_post", fields: [tagId], references: [id], onDelete: Cascade)
   tagId                 String
 
-  post                  Post              @relation("post_tag", fields: [postId], references: [id])
+  post                  Post              @relation("post_tag", fields: [postId], references: [id], onDelete: Cascade)
   postId                String
 
   status                Boolean           @default(true)
@@ -107,10 +107,10 @@ model CommentInPost {
   id                    String            @id @default(uuid())
   content               String            @db.Text
 
-  author                Member            @relation("member_comment", fields: [authorId], references: [id])
+  author                Member            @relation("member_comment", fields: [authorId], references: [id], onDelete: Cascade)
   authorId              String
 
-  post                  Post              @relation("post_comment", fields: [postId], references: [id])
+  post                  Post              @relation("post_comment", fields: [postId], references: [id], onDelete: Cascade)
   postId                String
 
   status                Boolean           @default(true)

@@ -10,7 +10,7 @@ declare namespace App {
 			name: string;
 			username: string;
 			email: string;
-			role: ROLE;
+			role: 'MEMBER' | 'AUTHOR' | 'MODERATOR' | 'ADMINISTRATOR';
 			status: boolean;
 			createdAt: Date;
 			updatedAt: Date;

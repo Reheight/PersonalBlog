@@ -55,6 +55,21 @@ const lock: Action = async ({ request, params, cookies }) => {
 
 	const target = await db.member.update({ where: { id: tID }, data: { status: false } });
 
+	if (target.role === 'ADMINISTRATOR') {
+		const totalAdministratorsWithout = await db.member.count({
+			where: { role: 'ADMINISTRATOR', AND: { NOT: { id: target.id } } }
+		});
+
+		if (totalAdministratorsWithout === 0)
+			return fail(
+				400,
+				resBuilder(
+					true,
+					'The player you were trying to lock is an Administrator and also appears to be the last Administrator so you cannot lock this account.'
+				)
+			);
+	}
+
 	if (!target)
 		return fail(400, resBuilder(true, 'You did not provide a UUID that corresponds to a member.'));
 
