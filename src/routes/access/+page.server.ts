@@ -5,7 +5,7 @@ import type { Action, Actions, PageServerLoad } from './$types';
 import { db } from '$lib/database';
 import { resBuilder } from '$lib/res';
 import regex from '$lib/regex';
-import type { Post, Member, TagsInPost, ROLE } from '@prisma/client';
+import type { ROLE } from '@prisma/client';
 
 export const load = (async ({ cookies }) => {
 	const token = cookies.get('access-token');
@@ -17,7 +17,7 @@ export const load = (async ({ cookies }) => {
 	});
 
 	if (!member) {
-		cookies.delete('access-token');
+		cookies.delete('access-token', { path: '/' });
 		return;
 	}
 
@@ -156,6 +156,9 @@ const login: Action = async ({ request, cookies }) => {
 	if (!passwordValid)
 		return fail(400, resBuilder(true, 'The account you are trying to access does not exist!'));
 
+	if (!member.status)
+		return fail(400, resBuilder(true, 'Your account has been disabled by an administrator.'));
+
 	const newToken = crypto.randomUUID();
 	const expireDate = new Date(new Date().setDate(new Date().getDate() + 7));
 
@@ -186,7 +189,7 @@ const logout: Action = async ({ request, cookies }) => {
 	const tokenExists = await db.session.findFirst({ where: { token } });
 
 	if (!tokenExists) {
-		cookies.delete('access-token');
+		cookies.delete('access-token', { path: '/' });
 		return fail(400, resBuilder(true, 'The token provided does not exist.'));
 	}
 

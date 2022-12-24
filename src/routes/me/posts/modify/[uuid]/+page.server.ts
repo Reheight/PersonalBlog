@@ -31,7 +31,7 @@ const modify: Action = async ({ request, cookies }) => {
 	const member = await db.member.findFirst({ where: { sessions: { some: { token } } } });
 
 	if (!member) {
-		cookies.delete('access-token');
+		cookies.delete('access-token', { path: '/' });
 		return fail(400, resBuilder(true, 'The token provided does not exist.'));
 	}
 

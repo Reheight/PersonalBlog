@@ -20,6 +20,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	});
 
+	if (!member?.status) {
+		event.cookies.delete('access-token');
+		return resolve(event);
+	}
+
 	if (!member) return resolve(event);
 
 	event.locals.member = {

@@ -12,7 +12,7 @@ export const load = (async ({ cookies }) => {
 	});
 
 	if (!member) {
-		cookies.delete('access-token');
+		cookies.delete('access-token', { path: '/' });
 		throw redirect(302, '/');
 	}
 
