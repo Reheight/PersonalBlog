@@ -48,7 +48,9 @@ const create: Action = async ({ request, cookies }) => {
 	if (!category || typeof category !== 'string')
 		return fail(400, resBuilder(true, 'You need to select a valid category.'));
 
-	const tA = tags.split(' ').map((x) => ({ id: x }));
+	const tA = tags.split(',').map((x) => ({ tagId: x }));
+
+	console.log(tA);
 
 	const _post = await db.post.create({
 		data: {
@@ -56,28 +58,15 @@ const create: Action = async ({ request, cookies }) => {
 			content,
 			description,
 			authorId: member.id,
-			categoryId: category
+			categoryId: category,
+			tags: {
+				createMany: {
+					data: tA,
+					skipDuplicates: true
+				}
+			}
 		}
 	});
-
-	// This is adding tags, probably a better way to do this but it works for now and honestly this is just a foundation
-	for (let i = 0; i < tA.length; i++) {
-		const tag = tA[i];
-		if (!tag.id || typeof tag.id !== 'string')
-			throw fail(400, resBuilder(true, 'You need to provide valid tags.'));
-
-		const exists = (await db.tag.count({ where: { id: tag.id } })) > 0;
-		if (!exists) throw fail(400, resBuilder(true, 'You need to provide a tag that exists.'));
-
-		const nTag = await db.tagInPost.create({
-			data: {
-				postId: _post.id,
-				tagId: tag.id
-			}
-		});
-
-		if (!nTag) throw fail(500, resBuilder(true, 'We ran into an issue while adding a tag.'));
-	}
 
 	throw redirect(302, `/blog/${_post.id}`);
 };

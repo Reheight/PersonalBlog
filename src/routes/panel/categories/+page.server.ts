@@ -38,8 +38,11 @@ const create: Action = async ({ request, cookies }) => {
 
 	const name = data.get('name');
 
-	if (!name || typeof name !== 'string' || !name.match(regex.cattagName))
-		return fail(400, resBuilder(true, 'You need to provide a valid value for a tag.'));
+	if (!name || typeof name !== 'string')
+		return fail(400, resBuilder(true, 'You need to provide a valid value for a category.'));
+
+	if (!name.match(/^[a-zA-Z0-9-_., ]{3,30}$/))
+		return fail(400, resBuilder(true, 'You provided an invalid name.'));
 
 	const tagExists = (await db.category.count({ where: { name } })) > 0;
 

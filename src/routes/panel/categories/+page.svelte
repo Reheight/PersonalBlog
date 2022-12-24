@@ -37,7 +37,7 @@
         <button type="submit" class="px-2 py-1 bg-orange-300 border-2 border-orange-200 rounded-md hover:bg-orange-400 ease-in-out transform-gpu transition-all">CREATE</button>
     </form>
 </div>
-<div class="m-4 flex flex-row gap-4 font-robotomono">
+<div class="m-4 flex flex-row gap-4 font-robotomono flex-wrap">
     {#if data.categories.length === 0}
     <p>There are currently no categories available.</p>
     {:else}

@@ -31,7 +31,10 @@
 <div class="w-full p-3">
 	<div class="w-full p-1 bg-orange-300 rounded-sm shadow-sm text-white">
 		<div class="text-gray-800 flex flex-col justify-center m-2">
-			<h1 class="font-montserrat flex-1 text-2xl uppercase font-extrabold">{data.subject}</h1>
+			<div class="flex flex-col justify-center items-center md:flex-row md:justify-between">
+				<h1 class="font-montserrat flex-1 text-2xl uppercase font-extrabold">{data.subject}</h1>
+				<p class="font-poppins text-sm">{data.category.name}</p>
+			</div>
 			<div class="flex flex-row justify-between items-center text-gray-600">
 				<span>By, <a href={`/profile/@${data.author.username}`}>{data.author.name} (@{data.author.username})</a></span>
 				<span
@@ -45,6 +48,11 @@
 		</div>
 		<div class="m-2 p-2 border-2 border-orange-200 bg-gray-200 rounded-md relative overflow-hidden text-gray-900">
 			<Viewer {plugins} value={data.content} />
+		</div>
+		<div class="flex flex-row gap-1 items-center justify-start bg-gray-400 rounded-sm p-1 overflow-x-auto m-2">
+			{#each data.tags as tag}
+			<div class="px-2 py-1 bg-gray-500 text-white rounded-sm">{tag.tag.name}</div>
+			{/each}
 		</div>
 		{#if $page.data.member}
 		<hr class="border-orange-200" />

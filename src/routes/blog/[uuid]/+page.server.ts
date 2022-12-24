@@ -1,36 +1,61 @@
 import { db } from '$lib/database';
 import { resBuilder } from '$lib/res';
 import { error, fail, redirect, type Actions, Action } from '@sveltejs/kit';
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
 	const post = await db.post.findFirst({
 		where: { id: params.uuid, status: true },
-		include: { author: true, tags: true }
+		include: {
+			author: {
+				select: {
+					id: true,
+					status: true,
+					name: true,
+					username: true
+				}
+			},
+
+			category: {
+				select: { id: true, name: true, status: true }
+			},
+
+			comments: {
+				select: {
+					author: {
+						select: {
+							id: true,
+							status: true,
+							name: true,
+							username: true
+						}
+					},
+					content: true,
+					id: true,
+					status: true,
+					createdAt: true,
+					updatedAt: true
+				}
+			},
+			tags: {
+				select: {
+					id: true,
+					tag: {
+						select: {
+							id: true,
+							name: true,
+							status: true
+						}
+					}
+				}
+			}
+		}
 	});
 
 	if (!post) throw error(404);
 
-	const comments = await db.commentInPost.findMany({
-		where: { postId: post.id, status: true },
-		include: { author: true },
-		orderBy: { createdAt: 'asc' }
-	});
-
-	post.comments = [];
-
-	for (let i = 0; i < comments.length; i++) {
-		delete comments[i].author.emailAddress;
-		delete comments[i].author.passwordHash;
-
-		post.comments.push(comments[i]);
-	}
-
-	delete post.author.emailAddress;
-	delete post.author.passwordHash;
-
 	return post;
-}) satisfies PageLoad;
+}) satisfies PageServerLoad;
 
 const comment: Action = async ({ request, params, cookies }) => {
 	const token = cookies.get('access-token');
