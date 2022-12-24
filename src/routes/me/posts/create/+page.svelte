@@ -40,7 +40,20 @@
 
 		return images;
 	}
+
+	import type { PageData } from './$types';
+	import MultiSelect from './components/MultiSelect.svelte';
+	export let data: PageData;
+
+	let selectedTags: never[] = [];
+
 </script>
+
+<style>
+	.multiselect {
+		background: #ffffff; display: none;
+	}
+</style>
 
 <div class="w-full flex justify-center items-center">
 	<div class="w-3/4 bg-orange-300 p-2 m-2 rounded-md">
@@ -59,7 +72,24 @@
 				placeholder="Title/Subject"
 			/>
 
+			<input type="hidden" name="tags" bind:value={selectedTags} />
+
+			{selectedTags}
+
+			<MultiSelect bind:value={selectedTags}>
+				{#each data.data.tags as tag}
+				<option value={tag.id}>{tag.name}</option>
+				{/each}
+			</MultiSelect>
+
 			<input type="hidden" name="content" {value} />
+			<select name="category" class="mb-1">
+				{#each data.data.categories as category}
+				<option value={category.id}>
+					{category.name}
+				</option>
+				{/each}
+			</select>
 
 			<textarea
 				name="description"

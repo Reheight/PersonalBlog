@@ -48,7 +48,6 @@ model Session {
 model Category {
   id                    String            @id @default(uuid())
   name                  String            @db.Text
-  description           String            @db.Text
 
   posts                 Post[]            @relation("category_post")
 
@@ -60,7 +59,6 @@ model Category {
 model Tag {
   id                    String            @id @default(uuid())
   name                  String            @db.Text
-  description           String?
 
   posts                 TagInPost[]       @relation("tag_post")
 
