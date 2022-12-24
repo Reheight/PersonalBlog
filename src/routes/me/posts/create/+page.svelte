@@ -74,8 +74,6 @@
 
 			<input type="hidden" name="tags" bind:value={selectedTags} />
 
-			{selectedTags}
-
 			<MultiSelect bind:value={selectedTags}>
 				{#each data.data.tags as tag}
 				<option value={tag.id}>{tag.name}</option>

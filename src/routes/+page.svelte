@@ -39,7 +39,7 @@
 				{#if blogs.length === 0}
 				It's a bit empty right now...
 				{/if}
-				{#each query === '' ? blogs : blogs.filter((b) => b.subject.includes(query) || b.author.name.includes(query) || b.author.role.includes(query) || b.author.username.includes(query) || b.content.includes(query) || b.description.includes(query)) as blog}
+				{#each query === '' ? blogs : blogs.filter((b) => b.category.name.toLowerCase().includes(query.toLowerCase()) || b.subject.toLowerCase().includes(query.toLowerCase()) || b.author.name.toLowerCase().includes(query.toLowerCase()) || b.author.role.toLowerCase().includes(query.toLowerCase()) || b.author.username.toLowerCase().includes(query.toLowerCase()) || b.content.toLowerCase().includes(query.toLowerCase()) || b.description.toLowerCase().includes(query.toLowerCase())) as blog}
 					<div
 						class="flex flex-col bg-orange-400 h-64 m-2 p-2 rounded-sm ease-in-out transition-all transform-gpu hover:shadow-md relative"
 					>
