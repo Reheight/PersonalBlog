@@ -86,7 +86,7 @@
 					{#each query === '' ? data.posts : getFilteredPosts() as post}
 						<div class="w-full">
 							<div
-								class="flex flex-col bg-orange-300 h-64 m-2 p-2 rounded-sm ease-in-out transition-all transform-gpu hover:shadow-md relative"
+								class="flex flex-col bg-orange-300 max-h-64 m-2 p-2 rounded-sm ease-in-out transition-all transform-gpu hover:shadow-md relative"
 							>
 								<div class="flex flex-col w-full">
 									<div class="flex flex-row justify-between">
@@ -139,7 +139,7 @@
                         {#each query === '' ? data.comments : getFilteredComments() as comment}
                         <div class="w-full">
 							<div
-								class="flex flex-col bg-orange-300 m-2 p-2 rounded-sm ease-in-out transition-all transform-gpu hover:shadow-md relative"
+								class="flex flex-col bg-orange-300 max-h-64 m-2 p-2 rounded-sm ease-in-out transition-all transform-gpu hover:shadow-md relative"
 							>
 								<div class="flex flex-col w-full">
 									<div class="flex flex-row justify-between">
