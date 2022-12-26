@@ -28,6 +28,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Progammers Daily | Create Post</title>
+</svelte:head>
+
 <div class="w-full flex justify-center items-center">
 	<div class="w-3/4 bg-orange-300 p-2 m-2 rounded-md">
 		<h1 class="m-1 p-1 font-robotomono uppercase font-bold">Modify Post</h1>

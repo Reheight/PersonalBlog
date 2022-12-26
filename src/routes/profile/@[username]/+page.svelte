@@ -22,7 +22,7 @@
 		return filteredPosts;
 	}
 
-    function getFilteredComments() {
+	function getFilteredComments() {
 		const comments: any[] = data.comments;
 		const filteredComments = comments.filter(
 			(x) =>
@@ -34,6 +34,11 @@
 		return filteredComments;
 	}
 </script>
+
+<svelte:head>
+	<title>Programmers Daily | {data.name}</title>
+	<meta name="robots" content="index follow" />
+</svelte:head>
 
 <div class="w-full flex flex-col md:flex-row p-2">
 	<div class="mb-2 md:mb-0 md:w-3/12 md:mr-2 h-fit shadow bg-orange-300 rounded-md p-2">
@@ -80,7 +85,7 @@
 				</p>
 			</div>
 		</div>
-		<div class="bg-orange-400 rounded-sm w-full p-2 text-white flex flex-col gap-2">
+		<div class="bg-orange-400 rounded-sm rounded-tr-none w-full p-2 text-white flex flex-col gap-2">
 			{#if selectedTab === 0}
 				{#if data.posts.length > 0}
 					{#each query === '' ? data.posts : getFilteredPosts() as post}
@@ -136,8 +141,8 @@
 
 			{#if selectedTab === 1}
 				{#if data.comments.length > 0}
-                        {#each query === '' ? data.comments : getFilteredComments() as comment}
-                        <div class="w-full">
+					{#each query === '' ? data.comments : getFilteredComments() as comment}
+						<div class="w-full">
 							<div
 								class="flex flex-col bg-orange-300 max-h-64 m-2 p-2 rounded-sm ease-in-out transition-all transform-gpu hover:shadow-md relative"
 							>
@@ -171,8 +176,8 @@
 								</div>
 							</div>
 						</div>
-                        {/each}
-                {:else}
+					{/each}
+				{:else}
 					<p class="font-poppins">It appears that this member has not made any comments yet...</p>
 				{/if}
 			{/if}

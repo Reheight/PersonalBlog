@@ -5,13 +5,17 @@
 	import Header from '../components/Header/Header.svelte';
 </script>
 
-	<main class="h-full flex flex-col">
-		<Header />
-		<Navigation />
-		<div class="flex-1 bg-orange-200 overflow-auto w-full">
-			<div class="flex w-full h-full overflow-y-auto">
-				<slot />
-			</div>
+<svelte:head>
+	<meta name="robots" content="index follow" />
+</svelte:head>
+
+<main class="h-full flex flex-col">
+	<Header />
+	<Navigation />
+	<div class="flex-1 bg-orange-200 overflow-auto w-full">
+		<div class="flex w-full h-full overflow-y-auto">
+			<slot />
 		</div>
-		<Footer />
-	</main>
+	</div>
+	<Footer />
+</main>
