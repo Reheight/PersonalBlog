@@ -42,10 +42,10 @@
 	}
 
 	import type { PageData } from './$types';
-	import MultiSelect from './components/MultiSelect.svelte';
+	import MultiSelect from '../components/MultiSelect.svelte';
 	export let data: PageData;
 
-	let selectedTags: never[] = [];
+	let selectedTags: string[] = [];
 </script>
 
 <svelte:head>
@@ -71,11 +71,7 @@
 
 			<input type="hidden" name="tags" bind:value={selectedTags} />
 
-			<MultiSelect bind:value={selectedTags}>
-				{#each data.data.tags as tag}
-					<option value={tag.id}>{tag.name}</option>
-				{/each}
-			</MultiSelect>
+			<MultiSelect id="tagselect" placeholder="Select your tags..." bind:selectedValues={selectedTags} providedValues={data.data.tags.map(x => ({ name: x.name, value: x.id }))} />
 
 			<input type="hidden" name="content" {value} />
 			<select name="category" class="mb-1">

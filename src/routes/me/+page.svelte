@@ -31,6 +31,11 @@
 		return filteredComments;
 	}
 </script>
+
+<svelte:head>
+	<title>Programmers Daily | {data.name}</title>
+</svelte:head>
+
 <div class="w-full flex flex-col md:flex-row p-2">
 	<div class="mb-2 md:mb-0 md:w-3/12 md:mr-2 h-fit shadow bg-orange-300 rounded-md p-2">
 		<div class="flex flex-row justify-between">
