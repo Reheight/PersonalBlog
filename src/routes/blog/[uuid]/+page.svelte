@@ -22,6 +22,9 @@
 <svelte:head>
 	<title>Programmers Daily | {data.subject}</title>
 	<meta name="robots" content="index follow" />
+	<meta name="description" content={data.description} />
+	<meta name="author" content={data.author.name} />
+	<meta name="keywords" content={data.tags.map(x => x.tag.name).join(', ')} />
 </svelte:head>
 
 <div class="w-full p-3">

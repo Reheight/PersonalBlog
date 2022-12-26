@@ -5,10 +5,6 @@
 	import Header from '../components/Header/Header.svelte';
 </script>
 
-<svelte:head>
-	<meta name="robots" content="index follow" />
-</svelte:head>
-
 <main class="h-full flex flex-col">
 	<Header />
 	<Navigation />

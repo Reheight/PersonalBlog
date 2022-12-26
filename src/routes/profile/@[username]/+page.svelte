@@ -38,6 +38,7 @@
 <svelte:head>
 	<title>Programmers Daily | {data.name}</title>
 	<meta name="robots" content="index follow" />
+	<meta name="description" content={`This is the profile account belonging to ${data.name}`} />
 </svelte:head>
 
 <div class="w-full flex flex-col md:flex-row p-2">
